@@ -2,10 +2,11 @@ $(function() {
 
   var jsons = ["130869.json", "39869651.json", "803970.json"];
   var images = new Array();
+  var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
   loadJson();
 
   function loadJson(idx) {
-	console.log(idx);
 	if (idx == null) idx = 0;
 	if (idx >= jsons.length) return; 
 	var file = jsons[idx];
@@ -42,7 +43,7 @@ $(function() {
 	var idx = 0;
 	for (var date in targetImages) {
 	  var images = targetImages[date];
-	  console.log(date);
+	  //console.log(date);
 	  prepareDay(date);
 	  //console.log(date);
 	  for (var i=0; i<images.length; i++) {
@@ -62,9 +63,11 @@ $(function() {
 	  var html = '<div class="photo">';
 
 	  var c = new Date(image["created_time"] * 1000);
-	  var created = (c.getMonth() + 1) + "/" + c.getDate() + " " + c.getHours() + ":" + c.getMinutes();
+	  var created = (c.getMonth() + 1) + "/" + c.getDate() + "（" + dayNames[c.getDay()] + "）" + c.getHours() + ":" + c.getMinutes() ;
 	  html += '<div class="meta">'
+	  html += '<a href="' + image["link"] + '">';
 	  html += created;
+	  html += '</a>';
 	  html += '</div>';
 
 	  html += '<img src="' + thumb + '" />'
@@ -77,7 +80,7 @@ $(function() {
 		html += '<ul class="comments">';
 		var comments = image["comments"]["data"];
 		for (var j=0; j<comments.length; j++) {
-		html += '<li><scrong>' + comments[j]["from"]["username"] + '</strong>: ' + comments[j]["text"] + "</li>";
+		html += '<li><strong style="color:#ccc">' + comments[j]["from"]["username"] + '</strong> ' + comments[j]["text"] + "</li>";
 		}
 		html += '</ul>';
 	  }
@@ -116,6 +119,8 @@ $(function() {
 		var cdate = ctime.getDate();
 		if (cyear == year && cmonth == month) {
 		  //console.log(images[j]["images"]["low_resolution"]);
+		  if (cmonth < 10) cmonth = '0' + cmonth;
+		  if (cdate < 10) cmonth = '0' + cdate;
 		  var date = cyear + "." + cmonth + "." + cdate;
 		  if (!result[date]) {
 			result[date] = new Array();
@@ -140,6 +145,7 @@ $(function() {
 	var newHash = {};
 	for (var k in hash) keys.push(k);
 	keys[sortFunc]();
+	console.log(keys);
 	var length = keys.length;
 	for(var i = 0; i < length; i++){
 	  newHash[keys[i]] = hash[keys[i]];

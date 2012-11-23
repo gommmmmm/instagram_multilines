@@ -1,3 +1,12 @@
+a, a:hover, a:active, a:visited {
+	text-decoration: none;
+	color: #fff;
+}
+
+a:hover {
+	color: #999;
+}
+
 body {
 	padding: 1em;
 	background: #333;
@@ -34,14 +43,16 @@ td.user_2 {
 
 .photo {
 	margin: 0 0 3em 0;
-	height: 450px;
+	min-height: 450px;
 }
 
 .meta {
 	color: #fff;
-	text-align: left:
-	border: 1px solid #f00;
+	text-align: left;
 	display: block;
+	background-color: #000;
+	padding: .2em 0 .2em .5em;
+	font-size: .6em;
 }
 
 .caption {
@@ -53,9 +64,14 @@ td.user_2 {
 
 .comments {
 	color: #fff;
-	font-size: .9em;
+	font-size: .7em;
+	line-height: 120%;
 	margin-top: 1em;
 	text-align: left;
+}
+
+.comments li {
+	line-height: 140%;
 }
 
 img {
