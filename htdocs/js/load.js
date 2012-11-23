@@ -20,24 +20,14 @@ $(function() {
 	});
   }
 
-  /*
-  for (var i=0; i<jsons.length; i++) {
-	var file = jsons[i];
-	$.get("./data/" + file, function(data) {
-	  images.push(eval(data));
-	  if (images.length >= 3) {
-		render(images);
-	  }
-	});
-  }
-  */
-
   function render(images, year, month) {
 	if (year == null || month == null) {
 	  year = 2012;
 	  month = 11;
 	}
-
+	$("#year").html(year + ".");
+	var displayMonth = (month < 10) ? "0" + month : month;
+	$("#month").html(month);
 	targetImages = filterImages(images, year, month);
 
 	var idx = 0;
@@ -120,7 +110,7 @@ $(function() {
 		if (cyear == year && cmonth == month) {
 		  //console.log(images[j]["images"]["low_resolution"]);
 		  if (cmonth < 10) cmonth = '0' + cmonth;
-		  if (cdate < 10) cmonth = '0' + cdate;
+		  if (cdate < 10) cdate = '0' + cdate;
 		  var date = cyear + "." + cmonth + "." + cdate;
 		  if (!result[date]) {
 			result[date] = new Array();
@@ -136,6 +126,12 @@ $(function() {
 	  }
 	}
 	result = keySort(result);
+	for (var date in result) {
+	  var users = result[date];
+	  for (var i=0; i<users.length; i++) {
+		users[i] = users[i].reverse();
+	  }
+	}
 	return result;
   }
 
@@ -151,6 +147,18 @@ $(function() {
 	  newHash[keys[i]] = hash[keys[i]];
 	}
 	return newHash;
+  }
+
+  $("#ymSelect").change(function() {
+	var val = $("#ymSelect").val();
+	var year = val.substr(0, 4);
+	var month = val.substr(4);
+	clear();
+	render(images, year, month);
+  });
+
+  function clear() {
+	$("#container").html("");
   }
 
 });

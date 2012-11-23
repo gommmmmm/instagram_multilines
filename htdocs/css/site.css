@@ -7,9 +7,18 @@ a:hover {
 	color: #999;
 }
 
+h1 {
+	color: #fff;
+}
+
+#yearContainer {
+	text-align: left;
+}
+
 body {
 	padding: 1em;
 	background: #333;
+	font-family: "iroha-25icho Regular", "Din Next Pro", "Helvetica";
 }
 
 td {
@@ -22,7 +31,6 @@ td.date {
 	background: #000;
 	color: #fff;
 	width: 10%;
-	font-family: "Helvetica";
 	font-size: 1.3em;
 }
 
@@ -77,3 +85,8 @@ td.user_2 {
 img {
 	width: 100%;
 }
+
+#selectorContainer {
+	text-align: right;
+}
+
