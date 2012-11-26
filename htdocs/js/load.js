@@ -58,9 +58,19 @@ $(function() {
 	  html += '<a href="' + image["link"] + '">';
 	  html += created;
 	  html += '</a>';
+	  if (image['location'] && image['location']['name']) {
+		html += '&nbsp;@' + image['location']['name'];
+	  }
+	  html += '<div class="counts">';
+	  html += '♥&nbsp;' + image['likes']['count'];
+	  html += '&nbsp;&nbsp;';
+	  html += '✉&nbsp;' + image['comments']['count'];
+	  html += '</div>';
 	  html += '</div>';
 
+	  html += '<a href="' + image['images']['standard_resolution']['url'] + '" target="blak">';
 	  html += '<img src="' + thumb + '" />'
+	  html += '</a>';
 	  if (image["caption"]) {
 		html += '<div class="caption">'
 		html += image["caption"]["text"];
@@ -83,7 +93,7 @@ $(function() {
 	var id = dateId(date);
 	if ($("#" + id).length > 0) return;
 	$("#container").append('<tr id="' + id + '"></tr>');
-	$("#" + id).append('<td class="date" valign="top">' + date + '</td>');
+	//$("#" + id).append('<td class="date" valign="top">' + date + '</td>');
   }
 
   function prepareUserCell(date, idx) {

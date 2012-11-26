@@ -60,7 +60,12 @@ td.user_2 {
 	display: block;
 	background-color: #000;
 	padding: .2em 0 .2em .5em;
-	font-size: .6em;
+	font-size: .8em;
+}
+
+.meta .counts {
+	float: right;
+	margin-right: 1em;
 }
 
 .caption {
