@@ -23,7 +23,7 @@ $(function() {
   function render(images, year, month) {
 	if (year == null || month == null) {
 	  year = 2012;
-	  month = 11;
+	  month = 12;
 	}
 	$("#year").html(year + ".");
 	var displayMonth = (month < 10) ? "0" + month : month;
@@ -41,6 +41,7 @@ $(function() {
 	  }
 	  idx ++;
 	}
+	$('a.lightbox').lightBox();
   }
 
   function render_one(date, images, idx) {
@@ -58,17 +59,29 @@ $(function() {
 	  html += '<a href="' + image["link"] + '">';
 	  html += created;
 	  html += '</a>';
-	  if (image['location'] && image['location']['name']) {
-		html += '&nbsp;@' + image['location']['name'];
+	  if (image['location']) {
+		html += '&nbsp;';
+		html += '<a href="https://maps.google.com/maps?q=' + image['location']['latitude'] + ',' + image['location']['longitude'] + '">'
+		if (image['location']['name']) {
+		  html += '@' + image['location']['name'];
+		} else {
+		  html += '@location';
+		}
+		html += '</a>';
 	  }
 	  html += '<div class="counts">';
-	  html += '♥&nbsp;' + image['likes']['count'];
-	  html += '&nbsp;&nbsp;';
-	  html += '✉&nbsp;' + image['comments']['count'];
+	  if (image['likes']['count'] > 0) {
+		html += '♥&nbsp;' + image['likes']['count'];
+	  }
+	  if (image['comments']['count']) {
+		html += '&nbsp;&nbsp;';
+		html += '✉&nbsp;' + image['comments']['count'];
+	  }
 	  html += '</div>';
 	  html += '</div>';
 
-	  html += '<a href="' + image['images']['standard_resolution']['url'] + '" target="blak">';
+	  //html += '<a href="' + image['images']['standard_resolution']['url'] + '" target="blak" class="lightbox">';
+	  html += '<a href="' + image['images']['standard_resolution']['url'] + '" class="lightbox">';
 	  html += '<img src="' + thumb + '" />'
 	  html += '</a>';
 	  if (image["caption"]) {
